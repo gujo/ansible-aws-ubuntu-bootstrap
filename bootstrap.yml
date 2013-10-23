@@ -1,0 +1,70 @@
+---
+- hosts: newservers
+  remote_user: ubuntu
+  sudo: yes
+  
+  vars:
+    - ubuntu_release: precise
+    - root_password: ''
+    - deploy_password: ''
+    - deploy_user: 'ubuntu'
+      
+  tasks:
+
+    # First make sure all is updated and enable unattended security updates
+
+    - name: update apt cache
+      action: apt update_cache=yes
+
+    - name: update apt to latest version
+      action: apt upgrade=safe
+
+    - name: Adjust APT update intervals
+      action: copy src=config/apt_periodic dest=/etc/apt/apt.conf.d/10periodic
+             
+    - name: Make sure unattended-upgrades only installs from {{ ubuntu_release }}-security
+      action: lineinfile dest=/etc/apt/apt.conf.d/50unattended-upgrades regexp="{{ ubuntu_release }}-updates" state=absent
+      
+    # Configure ssh with sane defaults, no root login, login only with keys
+      
+    - name: Disable password authentication
+      action: lineinfile dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
+      notify: Restart ssh
+
+    - name: Disable ssh root access
+      lineinfile: dest=/etc/ssh/sshd_config regexp="^PermitRootLogin" line="PermitRootLogin no" state=present
+      notify: Restart ssh
+
+    - name: Disable password authentication
+      lineinfile: dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
+      notify: Restart ssh
+
+    # Create admin group and make sure only users in that grop can use sudo
+
+    - name: create admin group
+      action: create group admin
+
+    - name: add deploy user to admin group
+      action: command usermod -a -G admin {{ deploy_user }}
+            
+      # Install fail2ban to ban hosts
+
+    - name: Install fail2ban
+      action: apt pkg=fail2ban state=installed
+
+      # Set up UFW
+
+    - name: Default rule deny all
+      action: command ufw default deny
+      
+    - name: Allow SSH
+      action: command ufw allow ssh
+
+    - name: Enable ufw
+      action: shell echo 'y' | ufw enable
+
+      # All done! Reboot machine in case we have a new kernel installed
+      
+    - name: Reboot
+      action: command reboot
+      
