@@ -11,11 +11,10 @@ Usage
 
 * First of all you need ansible installed on the machine where this is executed
   * Install python and python-pip using the method preferred by your OS
-
-       `pip install ansible`
-       `pip install jinja2`
-       `pip install pyyaml`
-       `pip install paramiko`
+  * `pip install ansible`
+  * `pip install jinja2`
+  * `pip install pyyaml`
+  * `pip install paramiko`
   
 
 * Edit hosts.ini to include the ec2 instances you want to bootstrap
