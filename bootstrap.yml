@@ -62,7 +62,7 @@
     - name: Enable ufw
       action: shell echo 'y' | ufw enable
 
-      # All done! Reboot machine in case we have a new kernel installed
+    # All done! Reboot machine in case we have a new kernel installed
       
     - name: Reboot
       action: command reboot
