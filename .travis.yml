@@ -7,6 +7,6 @@ python:
     - pip install pyyaml
     - pip install paramiko
 
-    before_script:
-    script:
-      - ansible-playbook --syntax-check bootstrap.yml -i hosts.ini
+  before_script:
+  script:
+    - ansible-playbook --syntax-check bootstrap.yml -i hosts.ini
