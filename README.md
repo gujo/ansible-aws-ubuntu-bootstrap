@@ -3,6 +3,9 @@ ansible-aws-ubuntu-bootstrap
 
 Bootstrap and harden default ubuntu image on aws
 
+[![Build Status](https://travis-ci.org/gujo/ansible-aws-ubuntu-bootstrap.png?branch=master)](https://travis-ci.org/gujo/ansible-aws-ubuntu-bootstrap)
+
+
 Usage
 -----
 
