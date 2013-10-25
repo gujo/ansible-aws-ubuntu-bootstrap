@@ -44,6 +44,7 @@ Future Development
 
 For a 'real' server that is part of a bigger system and not just a standalone
 machine a couple more measures should be taken. For example:
+* SSH should only be open on a separate VPN-protected admin-network
 * Ship all logs to a separate server
 * Use SELinux or Apparmor
 * ...
