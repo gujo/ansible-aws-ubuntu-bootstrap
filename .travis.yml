@@ -1,12 +1,10 @@
 language: python
 python:
   - "2.7"
-  install:
-    - pip install ansible
-    - pip install jinja2
-    - pip install pyyaml
-    - pip install paramiko
-
-  before_script:
-  script:
-    - ansible-playbook --syntax-check bootstrap.yml -i hosts.ini
+install:
+  - pip install ansible
+  - pip install jinja2
+  - pip install pyyaml
+  - pip install paramiko
+script:
+  - ansible-playbook --syntax-check bootstrap.yml -i hosts.ini
