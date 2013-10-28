@@ -29,11 +29,11 @@
       
     - name: Disable ssh root access
       lineinfile: dest=/etc/ssh/sshd_config regexp="^PermitRootLogin" line="PermitRootLogin no" state=present
-      notify: Restart ssh
+      notify: Restart sshd
 
     - name: Disable password authentication
       lineinfile: dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
-      notify: Restart ssh
+      notify: Restart sshd
 
     # Create admin group and make sure only users in that grop can use sudo
 
@@ -62,11 +62,6 @@
     - name: Enable ufw
       action: shell echo 'y' | ufw enable
 
-    # All done! Reboot machine in case we have a new kernel installed
-      
-    - name: Reboot
-      action: command reboot
-
   handlers:
     - name: Restart sshd
-      action: service sshd state=restarted
+      action: service name=ssh state=restarted
