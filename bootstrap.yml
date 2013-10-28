@@ -1,13 +1,13 @@
 ---
 - hosts: newservers
-  remote_user: ubuntu
+  user: ubuntu
   sudo: yes
   
   vars:
     - ubuntu_release: precise
     - root_password: ''
     - deploy_password: ''
-    - deploy_user: 'ubuntu'
+    - user: 'ubuntu'
       
   tasks:
 
@@ -66,4 +66,7 @@
       
     - name: Reboot
       action: command reboot
-      
+
+  handlers:
+    - name: Restart sshd
+      action: service sshd state=restarted
