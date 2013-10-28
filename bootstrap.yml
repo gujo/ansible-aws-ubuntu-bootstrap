@@ -7,7 +7,7 @@
     - ubuntu_release: precise
     - root_password: ''
     - deploy_password: ''
-    - user: 'ubuntu'
+    - deploy_user: 'ubuntu'
       
   tasks:
 
