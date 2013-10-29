@@ -9,12 +9,17 @@ Bootstrap and harden default ubuntu image on aws
 Usage
 -----
 
-* First of all you need ansible installed on the machine where this is executed
+  * First of all you need ansible installed on the machine where this is executed
   * Install python and python-pip using the method preferred by your OS
+
+Install ansible either from pip:
   * `pip install ansible`
+
+Or from Github to get the latest version:
   * `pip install jinja2`
   * `pip install pyyaml`
   * `pip install paramiko`
+  * `git clone git://github.com/ansible/ansible.git`
   * `source ansible/hacking/env-setup`
 
 * Edit hosts.ini to include the ec2 instances you want to bootstrap
